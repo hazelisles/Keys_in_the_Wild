@@ -65,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
         {
             yVelocity = initialJumpVelocity;
             jumpsAvailable--;
-            Debug.Log("jump!");
             //anim.SetTrigger("jump");
         }
 
