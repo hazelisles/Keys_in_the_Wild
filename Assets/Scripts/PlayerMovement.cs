@@ -20,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
     private float jumpsAvailable = 0;
     private float jumpsMax = 2;
 
+    [SerializeField] private GameObject model;          // a reference to the model (inside the Player gameObject)
+    //private float rotateToFaceMovementSpeed = 5f;       // the speed to rotate our model towards the movement vector
+
+    [SerializeField] private Camera cam;                // a reference to the main camera
+    //private float rotateToFaceAwayFromCameraSpeed = 5f; // the speed to rotate our Player to align with the camera view.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,14 +45,27 @@ public class PlayerMovement : MonoBehaviour
         // ensure diagonal movement doesn't exceed horiz/vert movement speed
         movement = Vector3.ClampMagnitude(movement, 1.0f);
 
+        // set the animator's velocity parameter based on our XZ movement
+
+        // convert from local to global coordinates
+
+
         movement *= speed;
 
         yVelocity += gravity * Time.deltaTime;
+
+        // if we are on the ground and we were falling
+        if (cc.isGrounded && yVelocity < 0.0)
+        {
+            yVelocity = yVelocityWhenGrounded;
+            jumpsAvailable = jumpsMax;
+        }
 
         if (Input.GetButtonDown("Jump") && jumpsAvailable > 0)
         {
             yVelocity = initialJumpVelocity;
             jumpsAvailable--;
+            Debug.Log("jump!");
             //anim.SetTrigger("jump");
         }
 
