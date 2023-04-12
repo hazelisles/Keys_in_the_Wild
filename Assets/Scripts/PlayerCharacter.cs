@@ -33,6 +33,10 @@ public class PlayerCharacter : MonoBehaviour
     {
         keyCount++;
         ui.UpdateKeyCount(keyCount);
+        if (keyCount == 5)
+        {
+            Messenger.Broadcast(GameEvent.GAME_OVER);
+        }
         //Debug.Log(keyCount);
     }
 }

@@ -8,7 +8,20 @@ public class UIController : MonoBehaviour
 {
     private int keyCount = 0;
     [SerializeField] private TextMeshProUGUI keyValue;
+    [SerializeField] private TextMeshProUGUI gameoverkeyvalue;
     [SerializeField] private OptionsPopup optionsPopup;
+    [SerializeField] private GameOverPopup gameOverPopup;
+
+    private void Awake()
+    {
+        Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,5 +56,12 @@ public class UIController : MonoBehaviour
     public void UpdateKeyCount(int count)
     {
         keyValue.text = count.ToString();
+        gameoverkeyvalue.text = count.ToString();
+    }
+
+    private void OnGameOver()
+    {
+        SetGameActive(false);
+        gameOverPopup.Open();
     }
 }
