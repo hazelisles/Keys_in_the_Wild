@@ -21,6 +21,7 @@ public class OptionsPopup : MonoBehaviour
     public void OnRestartButton()
     {
         Debug.Log("Restart!");
+        Messenger.Broadcast(GameEvent.GAME_RESTART);
     }
     public void OnExitGameButton()
     {
