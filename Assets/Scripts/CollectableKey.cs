@@ -31,4 +31,13 @@ public class CollectableKey : MonoBehaviour
         }
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Messenger.Broadcast(GameEvent.COLLECT_KEY);
+            Destroy(this.gameObject);
+        }
+    }
 }
