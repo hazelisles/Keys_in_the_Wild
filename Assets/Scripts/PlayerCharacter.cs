@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
+    [SerializeField] private UIController ui;
     private int keyCount = 0;
 
     private void Awake()
@@ -31,6 +32,7 @@ public class PlayerCharacter : MonoBehaviour
     private void OnCollectKey()
     {
         keyCount++;
-        Debug.Log(keyCount);
+        ui.UpdateKeyCount(keyCount);
+        //Debug.Log(keyCount);
     }
 }
