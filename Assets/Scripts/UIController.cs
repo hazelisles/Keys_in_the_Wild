@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 
 public class UIController : MonoBehaviour
 {
     private int keyCount = 0;
     [SerializeField] private TextMeshProUGUI keyValue;
+    [SerializeField] private TextMeshProUGUI timervalue;
+    [SerializeField] private TextMeshProUGUI timeleft;
     [SerializeField] private TextMeshProUGUI gameoverkeyvalue;
+    [SerializeField] private TextMeshProUGUI gameoverText;
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private GameOverPopup gameOverPopup;
+    [SerializeField] private SceneController sceneController;
     private int popupsActive = 0;
 
     private void Awake()
@@ -37,16 +42,20 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace) && !optionsPopup.IsActive())
+        if (Input.GetButtonDown("Menu") && !optionsPopup.IsActive())
         {
             SetGameActive(false);
             optionsPopup.Open();
+        }
+        if (Time.timeScale > 0)
+        {
+            UpdateTimer();
         }
     }
 
     public void SetGameActive(bool active)
     {
-        Debug.Log("SetGameActive(" + active + ")");
+        //Debug.Log("SetGameActive(" + active + ")");
         if (active)
         {
             Time.timeScale = 1.0f;
@@ -61,13 +70,33 @@ public class UIController : MonoBehaviour
 
     public void UpdateKeyCount(int count)
     {
+        keyCount = count;
         keyValue.text = count.ToString();
         gameoverkeyvalue.text = count.ToString();
     }
 
+    public void UpdateTimer()
+    {
+        float minutes = Mathf.FloorToInt(sceneController.timeRemaining / 60f);
+        float seconds = Mathf.FloorToInt(sceneController.timeRemaining % 60f);
+        timervalue.text = minutes.ToString() + " : " + seconds.ToString();
+        timeleft.text = minutes.ToString() + " : " + seconds.ToString();
+    }
+
     private void OnGameOver()
     {
+        UpdateTimer();
         SetGameActive(false);
+        if(keyCount < 5)
+        {
+            gameoverText.text = "Time out";
+            gameoverText.color = Color.red;
+        }
+        else
+        {
+            gameoverText.text = "Goal!";
+            gameoverText.color = Color.white;
+        }
         gameOverPopup.Open();
     }
 
