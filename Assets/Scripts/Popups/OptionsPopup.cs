@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsPopup : MonoBehaviour
+public class OptionsPopup : BasePopup
 {
     [SerializeField] private UIController ui;
-    public void Open()
+    override public void Open()
     {
-        gameObject.SetActive(true);
+        base.Open();
     }
-    public void Close()
+    override public void Close()
     {
-        gameObject.SetActive(false);
+        base.Close();
     }
-    public bool IsActive()
-    {
-        return gameObject.activeSelf;
-    }
+
     public void OnRestartButton()
     {
         Debug.Log("Restart!");

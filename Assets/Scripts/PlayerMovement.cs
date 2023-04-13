@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetTrigger("jump");
             yVelocity = initialJumpVelocity;
+            if(jumpsAvailable == 1) { yVelocity += jumpHeight; }        // Add more height for second(last) jump
             jumpsAvailable--;
         }
 

@@ -11,15 +11,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameoverkeyvalue;
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private GameOverPopup gameOverPopup;
+    private int popupsActive = 0;
 
     private void Awake()
     {
         Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
+        Messenger.AddListener(GameEvent.POPUP_OPEN, OnPopupOpened);
+        Messenger.AddListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
     }
 
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
+        Messenger.RemoveListener(GameEvent.POPUP_OPEN, OnPopupOpened);
+        Messenger.RemoveListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
     }
 
     // Start is called before the first frame update
@@ -41,6 +46,7 @@ public class UIController : MonoBehaviour
 
     public void SetGameActive(bool active)
     {
+        Debug.Log("SetGameActive(" + active + ")");
         if (active)
         {
             Time.timeScale = 1.0f;
@@ -63,5 +69,23 @@ public class UIController : MonoBehaviour
     {
         SetGameActive(false);
         gameOverPopup.Open();
+    }
+
+    private void OnPopupOpened()
+    {
+        if (popupsActive == 0)
+        {
+            SetGameActive(false);
+        }
+        popupsActive++;
+    }
+
+    private void OnPopupClosed()
+    {
+        popupsActive--;
+        if (popupsActive == 0)
+        {
+            SetGameActive(true);
+        }
     }
 }

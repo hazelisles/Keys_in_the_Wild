@@ -7,12 +7,23 @@ public class SceneController : MonoBehaviour
 {
     [SerializeField] private GameObject keyPrefab;
     // list for random point initial keys position
-    private Vector3[] initPoints;
-    private GameObject[] keys;
+    //private Vector3[] initPoints = new Vector3[5];
+    //[SerializeField] private GameObject[] keys; // = new GameObject[5];
+    private List<CollectableKey> keys = new List<CollectableKey>();
 
+    [SerializeField] private WelcomePopup welcomePopup;
+    
     private void Awake()
     {
         Messenger.AddListener(GameEvent.GAME_RESTART, OnGameRestart);
+
+        GameObject keyParent = GameObject.FindWithTag("Keys");
+        foreach (Transform child in keyParent.transform)
+        {
+            //child is your child transform
+            keys.Add(child.GetComponent<CollectableKey>());
+        }
+        Debug.Log("keys:" + keys.Count);
     }
 
     private void OnDestroy()
@@ -22,18 +33,21 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initPoints = new Vector3[5];
-        initPoints[0] = new Vector3(-53.86f,1,1.4f);
-        initPoints[1] = new Vector3(-20.03243f, 1.1f, 20.15111f);
-        initPoints[2] = new Vector3(-49.43243f, 1, 64.05111f);
-        initPoints[3] = new Vector3(39.56757f, 1.2f, 9.051113f);
-        initPoints[4] = new Vector3(-64.56243f, 1, -62.49889f);
-        keys = new GameObject[5];
-        for (int i = 0; i < keys.Length; i++)
-        {
-            keys[i] = Instantiate(keyPrefab) as GameObject;
-            keys[i].transform.position = initPoints[i];
-        }
+        welcomePopup.Open();
+        //initPoints[0] = new Vector3(-53.86f,1,1.4f);
+        //initPoints[1] = new Vector3(-20.03243f, 1.1f, 20.15111f);
+        //initPoints[2] = new Vector3(-49.43243f, 1, 64.05111f);
+        //initPoints[3] = new Vector3(39.56757f, 1.2f, 9.051113f);
+        //initPoints[4] = new Vector3(-64.56243f, 1, -62.49889f);
+        
+        //for (int i = 0; i < keys.Length; i++)
+        //{
+        //    if (keys[i] == null)
+        //    {
+        //        keys[i] = Instantiate(keyPrefab) as GameObject;
+        //        keys[i].transform.position = initPoints[i];
+        //    }
+        //}
     }
 
     // Update is called once per frame
@@ -42,8 +56,10 @@ public class SceneController : MonoBehaviour
         
     }
 
+
     private void OnGameRestart()
     {
         SceneManager.LoadScene(0);
+        
     }
 }
