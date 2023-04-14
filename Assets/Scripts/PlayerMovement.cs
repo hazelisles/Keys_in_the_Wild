@@ -12,12 +12,14 @@ public class PlayerMovement : MonoBehaviour
     private float yVelocity = 0f;
     private float yVelocityWhenGrounded = -4f;
 
-    private float jumpHeight = 3.0f;
+    private float jumpHeight = 3.5f;
     private float jumpTime = 0.5f;
     private float initialJumpVelocity;
 
     private float jumpsAvailable = 0;
     private float jumpsMax = 2;
+
+    private int mouse0ClickCount = 0;
 
     [SerializeField] private Animator anim;             // the model's animator component
     [SerializeField] private GameObject model;          // a reference to the model (inside the Player gameObject)
@@ -79,6 +81,19 @@ public class PlayerMovement : MonoBehaviour
 
         // tell the animator if we are grounded or not
         anim.SetBool("isGrounded", cc.isGrounded);
+
+        // trigger attack animation
+        if (Input.GetButtonDown("Fire1"))
+        {
+            //anim.SetBool("attack", true);
+            anim.SetTrigger("hit1");
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            //anim.SetBool("attack2", true);
+            anim.SetTrigger("hit2");
+        }
 
         movement.y = yVelocity;
 
