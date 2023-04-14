@@ -18,7 +18,7 @@ public class EnemyAction : MonoBehaviour
         
     }
 
-    public void ReactToHit()
+    private void ReactToHit()
     {
         Animator anim = GetComponent<Animator>();
 
@@ -29,6 +29,28 @@ public class EnemyAction : MonoBehaviour
                 health--;
                 anim.SetTrigger("gethit");
             }
+            if (anim != null && health <= 0)
+            {
+                anim.SetTrigger("Die");
+                isAlive = false;
+            }
+
+        }
+    }
+
+    // Animator deadevent takeover coroutine Die()
+    private void DeadEvent()
+    {
+        Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "bat")
+        {
+            //Debug.Log("Get hit!");
+            ReactToHit();
+            //Debug.Log(gameObject.name + " health: " + health.ToString());
         }
     }
 }

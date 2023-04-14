@@ -19,10 +19,11 @@ public class PlayerMovement : MonoBehaviour
     private float jumpsAvailable = 0;
     private float jumpsMax = 2;
 
-    private int mouse0ClickCount = 0;
+    //private int mouse0ClickCount = 0;
 
     [SerializeField] private Animator anim;             // the model's animator component
     [SerializeField] private GameObject model;          // a reference to the model (inside the Player gameObject)
+    
     private float rotateToFaceMovementSpeed = 5f;       // the speed to rotate our model towards the movement vector
 
     [SerializeField] private Camera cam;                // a reference to the main camera
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         float timeToApex = jumpTime / 2.0f;
         gravity = (-2 * jumpHeight) / Mathf.Pow(timeToApex, 2);
         initialJumpVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        
     }
 
     // Update is called once per frame
@@ -83,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("isGrounded", cc.isGrounded);
 
         // trigger attack animation
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.timeScale > 0) // prevent press start in beginning trigger attack
         {
             //anim.SetBool("attack", true);
             anim.SetTrigger("hit1");
