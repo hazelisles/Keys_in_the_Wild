@@ -5,11 +5,21 @@ using UnityEngine;
 public class EnemyAction : MonoBehaviour
 {
     private bool isAlive = true;
-    private int health = 3;
+    private int health;
+    private int maxHealth;
+    private EnemyUIC enemyUI;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (gameObject.tag == "turtle") { 
+            health = 10;
+            maxHealth = 10;
+        }
+        if (gameObject.tag == "slime") { 
+            health = 5;
+            maxHealth = 5;
+        }
+        enemyUI = gameObject.GetComponentInChildren<EnemyUIC>();
     }
 
     // Update is called once per frame
@@ -27,12 +37,21 @@ public class EnemyAction : MonoBehaviour
             if (anim != null && health > 0)
             {
                 health--;
+                enemyUI.UpdateHealth((float)health/maxHealth);
                 anim.SetTrigger("gethit");
             }
             if (anim != null && health <= 0)
             {
+                if(gameObject.tag == "turtle")
+                {
+                    Messenger<int>.Broadcast(GameEvent.ENEMY_DEAD, 2);
+                }
+                if(gameObject.tag == "slime")
+                {
+                    Messenger<int>.Broadcast(GameEvent.ENEMY_DEAD, 1);
+                }
                 anim.SetTrigger("Die");
-                isAlive = false;
+                isAlive = false;                
             }
 
         }

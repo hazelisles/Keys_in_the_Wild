@@ -8,11 +8,15 @@ using UnityEditor;
 public class UIController : MonoBehaviour
 {
     private int keyCount = 0;
+    private int score = 0;
     [SerializeField] private TextMeshProUGUI keyValue;
     [SerializeField] private TextMeshProUGUI timervalue;
     [SerializeField] private TextMeshProUGUI timeleft;
     [SerializeField] private TextMeshProUGUI gameoverkeyvalue;
     [SerializeField] private TextMeshProUGUI gameoverText;
+    [SerializeField] private TextMeshProUGUI scoreValue;
+    [SerializeField] private TextMeshProUGUI gameoverscore;
+
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private GameOverPopup gameOverPopup;
     [SerializeField] private SceneController sceneController;
@@ -23,6 +27,7 @@ public class UIController : MonoBehaviour
         Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
         Messenger.AddListener(GameEvent.POPUP_OPEN, OnPopupOpened);
         Messenger.AddListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
+        Messenger<int>.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
     }
 
     private void OnDestroy()
@@ -30,12 +35,14 @@ public class UIController : MonoBehaviour
         Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
         Messenger.RemoveListener(GameEvent.POPUP_OPEN, OnPopupOpened);
         Messenger.RemoveListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
+        Messenger<int>.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         UpdateKeyCount(keyCount);
+        UpdateScore();
         SetGameActive(true);
     }
 
@@ -83,6 +90,12 @@ public class UIController : MonoBehaviour
         timeleft.text = minutes.ToString() + " : " + seconds.ToString();
     }
 
+    private void UpdateScore()
+    {
+        scoreValue.text = score.ToString();
+        gameoverscore.text = score.ToString();
+    }
+
     private void OnGameOver()
     {
         UpdateTimer();
@@ -116,5 +129,11 @@ public class UIController : MonoBehaviour
         {
             SetGameActive(true);
         }
+    }
+
+    private void OnEnemyDead(int monsterNum)
+    {
+        score += monsterNum;
+        UpdateScore();
     }
 }

@@ -5,4 +5,5 @@ public static class GameEvent
     public const string COLLECT_KEY = "COLLECT_KEY";
     public const string POPUP_OPEN = "POPUP_OPEN";
     public const string POPUP_CLOSE = "POPUP_CLOSE";
+    public const string ENEMY_DEAD = "ENEMY_DEAD";
 }
