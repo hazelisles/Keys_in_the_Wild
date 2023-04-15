@@ -72,7 +72,6 @@ public class SceneController : MonoBehaviour
 
     private void OnGameRestart()
     {
-        SceneManager.LoadScene(0);
-        
+        SceneManager.LoadScene(0);      
     }
 }

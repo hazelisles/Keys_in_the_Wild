@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
 {
     private int keyCount = 0;
     private int score = 0;
+    private int playerhealth;
     [SerializeField] private TextMeshProUGUI keyValue;
     [SerializeField] private TextMeshProUGUI timervalue;
     [SerializeField] private TextMeshProUGUI timeleft;
@@ -16,6 +17,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameoverText;
     [SerializeField] private TextMeshProUGUI scoreValue;
     [SerializeField] private TextMeshProUGUI gameoverscore;
+
+    [SerializeField] private Slider healthbar;
 
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private GameOverPopup gameOverPopup;
@@ -43,6 +46,7 @@ public class UIController : MonoBehaviour
     {
         UpdateKeyCount(keyCount);
         UpdateScore();
+        SetPlayerHealth(100);
         SetGameActive(true);
     }
 
@@ -75,6 +79,12 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void SetPlayerHealth(int newHealth)
+    {
+        playerhealth = newHealth;
+        UpdateHealthBar();
+    }
+
     public void UpdateKeyCount(int count)
     {
         keyCount = count;
@@ -96,6 +106,11 @@ public class UIController : MonoBehaviour
         gameoverscore.text = score.ToString();
     }
 
+    private void UpdateHealthBar()
+    {
+        healthbar.value = playerhealth;
+    }
+
     private void OnGameOver()
     {
         UpdateTimer();
@@ -103,6 +118,11 @@ public class UIController : MonoBehaviour
         if(keyCount < 5)
         {
             gameoverText.text = "Time out";
+            gameoverText.color = Color.red;
+        }
+        else if(playerhealth <= 0)
+        {
+            gameoverText.text = "Dead!";
             gameoverText.color = Color.red;
         }
         else
