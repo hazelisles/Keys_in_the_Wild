@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttackState : StateMachineBehaviour
 {
     private EnemyNPC enemy;
+    
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -17,6 +18,7 @@ public class EnemyAttackState : StateMachineBehaviour
         //enemy.Agent.SetDestination(enemy.transform.position);   // don't move
         enemy.transform.LookAt(enemy.Player.transform);         // face the player
 
+        
         // if the player is too far away, stop attacking, transition to chase state
         if (enemy.GetDistanceFromPlayer() > enemy.AttackRangeStop)
         {
