@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     [SerializeField] private GameObject keyPrefab;
+    
     // list for initial keys position
     private List<CollectableKey> keys = new List<CollectableKey>();
     [SerializeField] private UIController ui;
