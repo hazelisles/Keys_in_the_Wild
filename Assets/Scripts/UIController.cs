@@ -82,6 +82,10 @@ public class UIController : MonoBehaviour
         {
             UpdateTimer();
         }
+        if(Input.GetKeyDown("space") && welcomePopup.IsActive())
+        {
+            welcomePopup.OnStartButton();
+        }
     }
 
     public void SetGameActive(bool active)
