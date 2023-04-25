@@ -26,8 +26,12 @@ public class UIController : MonoBehaviour
     [SerializeField] private AudioClip gameoverSound;
     [SerializeField] private AudioClip gameoverSfx;
 
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
+
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private GameOverPopup gameOverPopup;
+    [SerializeField] private WelcomePopup welcomePopup;
     [SerializeField] private SceneController sceneController;
     private int popupsActive = 0;
 
@@ -55,6 +59,8 @@ public class UIController : MonoBehaviour
         SetPlayerHealth(100);
         SetGameActive(true);
         gameover = false;
+        musicSlider.value = SoundManager.Instance.MusicVolume;
+        sfxSlider.value = SoundManager.Instance.SfxVolume;
     }
 
     // Update is called once per frame
@@ -62,8 +68,15 @@ public class UIController : MonoBehaviour
     {
         if (Input.GetButtonDown("Menu") && !optionsPopup.IsActive())
         {
-            SetGameActive(false);
-            optionsPopup.Open();
+            if (!welcomePopup.IsActive() && !gameOverPopup.IsActive()) 
+            {
+                optionsPopup.Open();
+            }
+            
+        } 
+        else if (Input.GetButtonDown("Menu") && optionsPopup.IsActive())
+        {
+            optionsPopup.Close();
         }
         if (Time.timeScale > 0)
         {
@@ -116,6 +129,17 @@ public class UIController : MonoBehaviour
     private void UpdateHealthBar()
     {
         healthbar.value = playerhealth;
+    }
+
+
+    public void OnMusicVolumeChanged(float value)
+    {
+        SoundManager.Instance.MusicVolume = value;
+    }
+
+    public void OnSfxVolumeChanged(float value)
+    {
+        SoundManager.Instance.SfxVolume = value;
     }
 
     private void OnGameOver()

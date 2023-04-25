@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
@@ -8,6 +9,35 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioMixer mixer;
+
+    private float sfxVolume = 1.0f;
+    private float musicVolume = 1.0f;
+
+    // a property to get/set sfx volume
+    public float SfxVolume
+    {
+        get { return sfxVolume; }
+        set
+        {
+            sfxVolume = Mathf.Clamp(value, 0.0f, 1.0f); // limit vol range
+            mixer.SetFloat("SfxVolume", LinearToLog(sfxVolume));     // set mixer sfx vol
+        }
+    }
+    // a property to get/set sfx volume
+    public float MusicVolume
+    {
+        get { return musicVolume; }
+        set
+        {
+            musicVolume = Mathf.Clamp(value, 0.0f, 1.0f);
+            mixer.SetFloat("MusicVolume", LinearToLog(musicVolume));
+        }
+    }
+
+    // For save and restore volume
+    const string MUSIC_VOL = "MusicVol";    // PlayerPrefs key for saving music volume
+    const string SFX_VOL = "SfxVol";        // PlayerPrefs key for saving sfx volume
 
     private void Awake()
     {
@@ -15,23 +45,26 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
-            //Init();
+            Init();
         }
         else
         {
             Destroy(gameObject);
         }
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Init()
     {
-        
+        // Restore volume slider values from PlayerPrefs
+        MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOL, 1f);
+        SfxVolume = PlayerPrefs.GetFloat(SFX_VOL, 1f);      // if not found, use 1f
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        // Save volume slider values to PlayerPrefs
+        PlayerPrefs.SetFloat(MUSIC_VOL, musicVolume);
+        PlayerPrefs.SetFloat(SFX_VOL, sfxVolume);
     }
 
     // Play a sfx clip (fire & forget & one shot sound effect)
@@ -51,5 +84,11 @@ public class SoundManager : MonoBehaviour
     public void StopMusic()
     {
         musicSource.Stop();
+    }
+
+    // convert from linear to logarithmic scale (0.0-1.0 to decibels)
+    private float LinearToLog(float value)
+    {
+        return Mathf.Log10(value) * 20;
     }
 }

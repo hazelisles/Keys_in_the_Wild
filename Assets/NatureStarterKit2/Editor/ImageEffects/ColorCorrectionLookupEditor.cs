@@ -15,8 +15,11 @@ namespace UnityStandardAssets.ImageEffects
 
         private Texture2D tempClutTex2D;
 
-
-        public override void OnInspectorGUI () {
+        [Obsolete]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+        public override void OnInspectorGUI()
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
+        {
             serObj.Update ();
 
             EditorGUILayout.LabelField("Converts textures into color lookup volumes (for grading)", EditorStyles.miniLabel);
