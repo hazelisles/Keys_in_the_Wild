@@ -23,7 +23,7 @@ public class EnemyNPC : MonoBehaviour
     //[SerializeField] public Transform projectileSpawnPt;        // spawn point for bullets    
     //private float projectileForce = 35f;                        // force to shoot the projectile with
     [SerializeField] private Transform prizeLoc;
-    public float PrizeRadius { get; private set; } = 9;
+    public float PrizeRadius { get; private set; } = 7;
     private Vector3 destination;
 
 

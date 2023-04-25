@@ -31,7 +31,7 @@ public class EnemyPatrolState : StateMachineBehaviour
         // if reached a waypoint
         if (enemy.Agent.remainingDistance <= enemy.Agent.stoppingDistance)
         {
-            Debug.Log("RD:" + enemy.Agent.remainingDistance + ", stopping distance:" + enemy.Agent.stoppingDistance);
+            //Debug.Log("RD:" + enemy.Agent.remainingDistance + ", stopping distance:" + enemy.Agent.stoppingDistance);
             animator.SetBool("isPatrolling", false);    // transition to idle
         }
         else if (enemy.GetDistanceFromPlayer() < enemy.ChaseRange)
