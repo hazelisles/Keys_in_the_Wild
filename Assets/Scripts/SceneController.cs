@@ -11,9 +11,10 @@ public class SceneController : MonoBehaviour
     private List<CollectableKey> keys = new List<CollectableKey>();
     [SerializeField] private UIController ui;
     [SerializeField] private WelcomePopup welcomePopup;
+    [SerializeField] private AudioClip themeSound;
 
-    public float timeRemaining;
-    
+    public float timeRemaining { get; private set; } = 301f; // Set game timer
+
     private void Awake()
     {
         Messenger.AddListener(GameEvent.GAME_RESTART, OnGameRestart);
@@ -35,8 +36,8 @@ public class SceneController : MonoBehaviour
     void Start()
     {
         welcomePopup.Open();
-        timeRemaining = 601f;       // Set game timer
-
+        //timeRemaining = 601f;       
+        SoundManager.Instance.PlayMusic(themeSound);
         //initPoints[0] = new Vector3(-53.86f,1,1.4f);
         //initPoints[1] = new Vector3(-20.03243f, 1.1f, 20.15111f);
         //initPoints[2] = new Vector3(-49.43243f, 1, 64.05111f);

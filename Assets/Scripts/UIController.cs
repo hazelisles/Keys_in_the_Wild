@@ -20,6 +20,9 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private Slider healthbar;
 
+    [SerializeField] private AudioClip gameSound;
+    [SerializeField] private AudioClip themeSound;
+
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private GameOverPopup gameOverPopup;
     [SerializeField] private SceneController sceneController;
@@ -138,6 +141,8 @@ public class UIController : MonoBehaviour
         if (popupsActive == 0)
         {
             SetGameActive(false);
+            SoundManager.Instance.StopMusic();
+            SoundManager.Instance.PlayMusic(themeSound);
         }
         popupsActive++;
     }
@@ -148,6 +153,8 @@ public class UIController : MonoBehaviour
         if (popupsActive == 0)
         {
             SetGameActive(true);
+            SoundManager.Instance.StopMusic();
+            SoundManager.Instance.PlayMusic(gameSound);
         }
     }
 
