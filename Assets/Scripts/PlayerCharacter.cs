@@ -61,11 +61,11 @@ public class PlayerCharacter : MonoBehaviour
     {
         if(other.tag == "slime")
         {
-            ReactToHit(2);
+            ReactToHit(1);
         }
         if(other.tag == "turtle")
         {
-            ReactToHit(4);
+            ReactToHit(3);
         }
     }
 

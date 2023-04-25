@@ -13,7 +13,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] private WelcomePopup welcomePopup;
     [SerializeField] private AudioClip themeSound;
 
-    public float timeRemaining { get; private set; } = 301f; // Set game timer
+    public float timeRemaining { get; private set; } = 601f; // Set game timer
 
     private void Awake()
     {
