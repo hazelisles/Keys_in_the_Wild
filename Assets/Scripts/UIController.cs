@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     private int keyCount = 0;
     private int score = 0;
     private int playerhealth;
+    private bool gameover = false;
     [SerializeField] private TextMeshProUGUI keyValue;
     [SerializeField] private TextMeshProUGUI timervalue;
     [SerializeField] private TextMeshProUGUI timeleft;
@@ -22,6 +23,8 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private AudioClip gameSound;
     [SerializeField] private AudioClip themeSound;
+    [SerializeField] private AudioClip gameoverSound;
+    [SerializeField] private AudioClip gameoverSfx;
 
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private GameOverPopup gameOverPopup;
@@ -51,6 +54,7 @@ public class UIController : MonoBehaviour
         UpdateScore();
         SetPlayerHealth(100);
         SetGameActive(true);
+        gameover = false;
     }
 
     // Update is called once per frame
@@ -116,17 +120,20 @@ public class UIController : MonoBehaviour
 
     private void OnGameOver()
     {
+        gameover = true;
         UpdateTimer();
         SetGameActive(false);
         if(keyCount < 5)
         {
             gameoverText.text = "Time out";
             gameoverText.color = Color.red;
+            PlayGameOver();
         }
         else if(playerhealth <= 0)
         {
             gameoverText.text = "Dead!";
             gameoverText.color = Color.red;
+            PlayGameOver();
         }
         else
         {
@@ -136,13 +143,25 @@ public class UIController : MonoBehaviour
         gameOverPopup.Open();
     }
 
+    private void PlayGameOver()
+    {
+        SoundManager.Instance.PlaySfx(gameoverSfx);
+    }
+
     private void OnPopupOpened()
     {
         if (popupsActive == 0)
         {
             SetGameActive(false);
             SoundManager.Instance.StopMusic();
-            SoundManager.Instance.PlayMusic(themeSound);
+            if (gameover)
+            {
+                SoundManager.Instance.PlayMusic(gameoverSound);
+            }
+            else
+            {
+                SoundManager.Instance.PlayMusic(themeSound);
+            }            
         }
         popupsActive++;
     }

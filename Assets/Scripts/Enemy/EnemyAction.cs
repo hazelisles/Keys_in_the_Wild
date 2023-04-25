@@ -36,7 +36,7 @@ public class EnemyAction : MonoBehaviour
         {
             if (anim != null && health > 0)
             {
-                health--;
+                health -= 2;
                 enemyUI.UpdateHealth((float)health/maxHealth);
                 anim.SetTrigger("gethit");
             }

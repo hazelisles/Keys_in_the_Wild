@@ -6,6 +6,8 @@ public class PlayerCharacter : MonoBehaviour
 {
     [SerializeField] private UIController ui;
     private int keyCount = 0;
+    private int health = 100;
+    [SerializeField] private AudioClip collect;
 
     private void Awake()
     {
@@ -31,6 +33,7 @@ public class PlayerCharacter : MonoBehaviour
 
     private void OnCollectKey()
     {
+        SoundManager.Instance.PlaySfx(collect);
         keyCount++;
         ui.UpdateKeyCount(keyCount);
         if (keyCount == 5)
@@ -38,5 +41,36 @@ public class PlayerCharacter : MonoBehaviour
             Messenger.Broadcast(GameEvent.GAME_OVER);
         }
         //Debug.Log(keyCount);
+    }
+
+    private void ReactToHit(int damagePoint)
+    {
+        Animator anim = GetComponentInChildren<Animator>();
+        if (anim != null && health > 0)
+        {
+            anim.SetTrigger("gethit");
+            health -= damagePoint;
+            ui.SetPlayerHealth(health);
+        }
+        if (anim != null && health <= 0)
+        {
+            anim.SetTrigger("die");
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "slime")
+        {
+            ReactToHit(2);
+        }
+        if(other.tag == "turtle")
+        {
+            ReactToHit(4);
+        }
+    }
+
+    private void DeadEvent()
+    {
+        Messenger.Broadcast(GameEvent.GAME_OVER);
     }
 }
