@@ -49,7 +49,7 @@ public class EnemyNPC : MonoBehaviour
     public void SetPrizeLoc(Transform t)
     {
         prizeLoc = t;
-        Debug.Log("prize loc:" + prizeLoc.position);
+        //Debug.Log("prize loc:" + prizeLoc.position);
     }
 
     Vector3 GetRandomWaypoint()
