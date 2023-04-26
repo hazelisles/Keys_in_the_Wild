@@ -12393,8 +12393,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 741794159}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 2103276069}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnMusicVolumeChanged
         m_Mode: 0
         m_Arguments:
@@ -21872,8 +21872,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 741794159}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 2103276069}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnSfxVolumeChanged
         m_Mode: 0
         m_Arguments:

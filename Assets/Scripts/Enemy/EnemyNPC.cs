@@ -13,17 +13,13 @@ public class EnemyNPC : MonoBehaviour
 
     public GameObject Player { get; private set; }
     public NavMeshAgent Agent { get; private set; }
-    //private Transform originalpos;
 
-    //public List<Transform> Waypoints { get; private set; }      // waypoints for patrol state
-    //private int waypointIndex = 0;                              // current waypoint index
-    //private int waypointMax = 5;
+    [SerializeField] private GameObject projectilePrefab;       // for creating "bullets"
+    [SerializeField] public Transform projectileSpawnPt;        // spawn point for bullets    
+    private float projectileForce = 30f;                        // force to shoot the projectile with
 
-    //[SerializeField] private GameObject projectilePrefab;       // for creating "bullets"
-    //[SerializeField] public Transform projectileSpawnPt;        // spawn point for bullets    
-    //private float projectileForce = 35f;                        // force to shoot the projectile with
-    [SerializeField] private Transform prizeLoc;
-    public float PrizeRadius { get; private set; } = 7;
+    [SerializeField] private Transform prizeLoc;    // centre reference place to auto generate next waypoint
+    public float PrizeRadius { get; private set; } = 7;     // range radius from centre for random next waypoint 
     private Vector3 destination;
 
 
@@ -32,17 +28,6 @@ public class EnemyNPC : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");
-        //originalpos = this.gameObject.transform;
-
-        // Create and populate a list of waypoints
-        //Waypoints = new List<Transform>();
-       
-        //Waypoints.Add(originalpos);
-        //GameObject waypoints = transform.Find("Waypoints").gameObject;
-        //foreach(Transform t in waypoints.transform)
-        //{
-        //    Waypoints.Add(t);
-        //}
         
     }
 
@@ -84,5 +69,13 @@ public class EnemyNPC : MonoBehaviour
         Gizmos.DrawWireSphere(destination, 0.25f);
     }
 
+    public void ShootEvent()
+    {
+        // spawn a projectile using the spawnPoint
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPt.position, projectileSpawnPt.rotation);
+        // move it forward
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * projectileForce, ForceMode.Impulse);
+    }
 
 }
