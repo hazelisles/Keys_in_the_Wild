@@ -25,7 +25,7 @@ public class EnemyIdleState : StateMachineBehaviour
         }
         else if (enemy.GetDistanceFromPlayer() < enemy.ChaseRange)
         {
-            animator.SetBool("isChasing", true);    // transition to chase state
+            animator.SetBool("isChasing", true);    // transition to chase state            
         }
     }
 

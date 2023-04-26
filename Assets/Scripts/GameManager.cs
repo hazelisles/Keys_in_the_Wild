@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     public int playerhealth { get; private set; } = 100;
     private bool gameover = false;
     private int popupsActive = 0;
+    private int enemyChaseActive = 0;
 
     [SerializeField] private AudioClip gameSound;
     [SerializeField] private AudioClip themeSound;
+    [SerializeField] private AudioClip battleSound;
     [SerializeField] private AudioClip gameoverSound;
     [SerializeField] private AudioClip gameoverSfx;
     [SerializeField] private AudioClip collect;
@@ -38,6 +40,8 @@ public class GameManager : MonoBehaviour
         Messenger<int>.AddListener(GameEvent.ENEMY_HURT, OnEnemyHurt);
         Messenger<int>.AddListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
         Messenger.AddListener(GameEvent.COLLECT_KEY, OnCollectKey);
+        Messenger.AddListener(GameEvent.ENEMY_CHASE_ON, OnEnemyChaseOn);
+        Messenger.AddListener(GameEvent.ENEMY_CHASE_OFF, OnEnemyChaseOff);
     }
 
     private void OnDestroy()
@@ -49,6 +53,8 @@ public class GameManager : MonoBehaviour
         Messenger<int>.RemoveListener(GameEvent.ENEMY_HURT, OnEnemyHurt);
         Messenger<int>.RemoveListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
         Messenger.RemoveListener(GameEvent.COLLECT_KEY, OnCollectKey);
+        Messenger.RemoveListener(GameEvent.ENEMY_CHASE_ON, OnEnemyChaseOn);
+        Messenger.RemoveListener(GameEvent.ENEMY_CHASE_OFF, OnEnemyChaseOff);
     }
 
     // Start is called before the first frame update
@@ -171,6 +177,7 @@ public class GameManager : MonoBehaviour
     {
         score += monsterNum;
         ui.UpdateScore(score);
+        Messenger.Broadcast("ENEMY_CHASE_OFF");
     }
 
     private void OnEnemyHurt(int monsterNum)
@@ -201,5 +208,29 @@ public class GameManager : MonoBehaviour
         {
             Messenger.Broadcast(GameEvent.GAME_OVER);
         }
+    }
+
+    private void OnEnemyChaseOn()
+    {
+        Debug.Log("ChaseOnBegin: " + enemyChaseActive);
+        if(enemyChaseActive == 0)
+        {
+            SoundManager.Instance.StopMusic();
+            SoundManager.Instance.PlayMusic(battleSound);
+        }
+        enemyChaseActive++;
+        Debug.Log("ChaseOnFinish: " + enemyChaseActive);
+    }
+
+    private void OnEnemyChaseOff()
+    {
+        Debug.Log("ChaseOffBegin: " + enemyChaseActive);
+        enemyChaseActive--;
+        if(enemyChaseActive == 0)
+        {
+            SoundManager.Instance.StopMusic();
+            SoundManager.Instance.PlayMusic(gameSound);
+        }
+        Debug.Log("ChaseOffFinish: " + enemyChaseActive);
     }
 }
