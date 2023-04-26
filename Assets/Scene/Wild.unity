@@ -14322,6 +14322,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
   m_PrefabInstance: {fileID: 658981114}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1049294848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1049294850}
+  - component: {fileID: 1049294849}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1049294849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049294848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58bcbffd40ada5d4e9388d900fd118b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1049294850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049294848}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1051986005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 3}
@@ -30522,6 +30566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSound: {fileID: 8300000, guid: 0bc696152f460444395ac22c3c8528ce, type: 3}
   themeSound: {fileID: 8300000, guid: 494a01d0eb32c024c9b8a5e1d368defe, type: 3}
+  battleSound: {fileID: 8300000, guid: f337d5130bc334245b06bcfc5164d50e, type: 3}
   gameoverSound: {fileID: 8300000, guid: fe99b930533277e4f9be9566768ccb9f, type: 3}
   gameoverSfx: {fileID: 8300000, guid: 830948a76a1fe31409e251e5848e5988, type: 3}
   collect: {fileID: 8300000, guid: d374e6dbd79bda941ac3b2d791eee748, type: 3}

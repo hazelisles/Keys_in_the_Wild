@@ -22,6 +22,7 @@ public class EnemyNPC : MonoBehaviour
     public float PrizeRadius { get; private set; } = 7;     // range radius from centre for random next waypoint 
     private Vector3 destination;
 
+    public bool isChasing { get; private set; } = false;
 
 
     private void Start()
@@ -29,6 +30,18 @@ public class EnemyNPC : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");
         projectileSpawnPt = gameObject.transform.Find("spawnPoint");
+    }
+
+    private void Update()
+    {
+        if(GetDistanceFromPlayer() <= ChaseRange)
+        {
+            isChasing = true;
+        } 
+        else if (GetDistanceFromPlayer() > ChaseRange)
+        {
+            isChasing = false;
+        }
     }
 
     public void SetPrizeLoc(Transform t)

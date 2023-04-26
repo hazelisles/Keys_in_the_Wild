@@ -33,6 +33,7 @@ public class KeyEnemy : MonoBehaviour
 
             enemyObj.transform.rotation = Quaternion.identity;
             enemies.Add(enemy);
+            EnemyManager.Instance.addEnemy(enemy);
         }
     }
 

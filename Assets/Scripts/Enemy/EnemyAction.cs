@@ -72,6 +72,8 @@ public class EnemyAction : MonoBehaviour
     // Animator deadevent takeover coroutine Die()
     private void DeadEvent()
     {
+        EnemyNPC npc = GetComponent<EnemyNPC>();
+        EnemyManager.Instance.destroyEnemy(npc);
         Destroy(this.gameObject);
     }
 
