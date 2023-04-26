@@ -4,20 +4,7 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    [SerializeField] private UIController ui;
-    private int keyCount = 0;
-    private int health = 100;
-    [SerializeField] private AudioClip collect;
-
-    private void Awake()
-    {
-        Messenger.AddListener(GameEvent.COLLECT_KEY, OnCollectKey);
-    }
-
-    private void OnDestroy()
-    {
-        Messenger.RemoveListener(GameEvent.COLLECT_KEY, OnCollectKey);
-    }
+    [SerializeField] private GameManager gm;
 
     // Start is called before the first frame update
     void Start()
@@ -31,28 +18,16 @@ public class PlayerCharacter : MonoBehaviour
         
     }
 
-    private void OnCollectKey()
-    {
-        SoundManager.Instance.PlaySfx(collect);
-        keyCount++;
-        ui.UpdateKeyCount(keyCount);
-        if (keyCount == 5)
-        {
-            Messenger.Broadcast(GameEvent.GAME_OVER);
-        }
-        //Debug.Log(keyCount);
-    }
-
+    
     private void ReactToHit(int damagePoint)
     {
         Animator anim = GetComponentInChildren<Animator>();
-        if (anim != null && health > 0)
+        if (anim != null && gm.playerhealth > 0)
         {
             anim.SetTrigger("gethit");
-            health -= damagePoint;
-            ui.SetPlayerHealth(health);
+            Messenger<int>.Broadcast("PLAYER_HEALTH_CHANGE", damagePoint);
         }
-        if (anim != null && health <= 0)
+        if (anim != null && gm.playerhealth <= 0)
         {
             anim.SetTrigger("die");
         }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class OptionsPopup : BasePopup
 {
-    [SerializeField] private UIController ui;
+    [SerializeField] private GameManager gm;
     override public void Open()
     {
         base.Open();
@@ -29,6 +29,6 @@ public class OptionsPopup : BasePopup
     {
         Debug.Log("Return");
         Close();
-        ui.SetGameActive(true);
+        gm.SetGameActive(true);
     }
 }

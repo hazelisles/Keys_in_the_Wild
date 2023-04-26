@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyAction : MonoBehaviour
 {
     private bool isAlive = true;
+    private int hitDamage = 2;
+    private int turtleScore = 2;
+    private int slimeScore = 1;
     private int health;
     private int maxHealth;
     private EnemyUIC enemyUI;
@@ -36,7 +39,7 @@ public class EnemyAction : MonoBehaviour
         {
             if (anim != null && health > 0)
             {
-                health -= 2;
+                health -= hitDamage;
                 enemyUI.UpdateHealth((float)health/maxHealth);
                 anim.SetTrigger("gethit");
             }
@@ -44,11 +47,11 @@ public class EnemyAction : MonoBehaviour
             {
                 if(gameObject.tag == "turtle")
                 {
-                    Messenger<int>.Broadcast(GameEvent.ENEMY_DEAD, 2);
+                    Messenger<int>.Broadcast(GameEvent.ENEMY_DEAD, turtleScore);
                 }
                 if(gameObject.tag == "slime")
                 {
-                    Messenger<int>.Broadcast(GameEvent.ENEMY_DEAD, 1);
+                    Messenger<int>.Broadcast(GameEvent.ENEMY_DEAD, slimeScore);
                 }
                 anim.SetTrigger("Die");
                 isAlive = false;                

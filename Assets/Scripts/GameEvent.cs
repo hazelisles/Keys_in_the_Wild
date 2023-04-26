@@ -6,4 +6,5 @@ public static class GameEvent
     public const string POPUP_OPEN = "POPUP_OPEN";
     public const string POPUP_CLOSE = "POPUP_CLOSE";
     public const string ENEMY_DEAD = "ENEMY_DEAD";
+    public const string PLAYER_HEALTH_CHANGE = "PLAYER_HEALTH_CHANGE";
 }

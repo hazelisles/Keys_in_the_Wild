@@ -7,7 +7,7 @@ public class CollectableKey : MonoBehaviour
     private float floatTimer;
     private float floatSpeed = 0.0045f;
     private float floatRate = 1f;
-
+    private float rotationSpeed = 150f;
 
 
     private void Start()
@@ -22,7 +22,7 @@ public class CollectableKey : MonoBehaviour
         if (Time.timeScale > 0)
         {
             // key rotate itself
-            Vector3 rotation = Vector3.up * 150 * Time.deltaTime;
+            Vector3 rotation = Vector3.up * rotationSpeed * Time.deltaTime;
             transform.Rotate(rotation, Space.World);
             // key float up and down
             floatTimer += Time.deltaTime;

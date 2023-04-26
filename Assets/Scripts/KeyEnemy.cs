@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class KeyEnemy : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
+    // array for enemies prefab
+    public GameObject[] enemyPrefabs = new GameObject[2];
     int enemyCount = 0;
     private List<EnemyNPC> enemies = new List<EnemyNPC>();
     // Start is called before the first frame update
     void Start()
     {
-        enemyCount = Random.Range(1, 3);
+        enemyCount = Random.Range(1, 4);
         for (int i = 0; i < enemyCount; i++)
         {
-            GameObject enemyObj = Instantiate(enemyPrefab) as GameObject;
+            GameObject enemyObj = Instantiate(enemyPrefabs[Random.Range(0,2)]) as GameObject;
             EnemyNPC enemy = enemyObj.GetComponent<EnemyNPC>();
 
 

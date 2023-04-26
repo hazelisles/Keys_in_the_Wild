@@ -6,9 +6,15 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     [SerializeField] private GameObject keyPrefab;
+    [SerializeField] private GameObject keyPointPrefab;
     
     // list for initial keys position
     private List<CollectableKey> keys = new List<CollectableKey>();
+    // list for store keys position on empty gameObject with y always be 0.5
+    private List<GameObject> spawnPoints = new List<GameObject>();
+
+    [SerializeField] private GameObject[] enemyPrefabs = new GameObject[2];
+
     [SerializeField] private UIController ui;
     [SerializeField] private WelcomePopup welcomePopup;
     [SerializeField] private AudioClip themeSound;
@@ -24,6 +30,15 @@ public class SceneController : MonoBehaviour
         {
             //child is your child transform
             keys.Add(child.GetComponent<CollectableKey>());
+            
+            //generate point for enemies auto generation around the keys, and when key collected, enemies still there
+            GameObject emptyPoint = Instantiate(keyPointPrefab);
+            KeyEnemy ke = emptyPoint.GetComponent<KeyEnemy>();
+            ke.enemyPrefabs = enemyPrefabs;
+            emptyPoint.transform.position = new Vector3(child.position.x, 0.5f, child.position.z);
+            emptyPoint.transform.rotation = Quaternion.identity;
+            
+            spawnPoints.Add(emptyPoint);
         }
         //Debug.Log("keys:" + keys.Count);
     }
@@ -70,7 +85,6 @@ public class SceneController : MonoBehaviour
             }
         }
     }
-
 
     private void OnGameRestart()
     {

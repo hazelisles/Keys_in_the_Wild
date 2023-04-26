@@ -89,6 +89,6 @@ public class SoundManager : MonoBehaviour
     // convert from linear to logarithmic scale (0.0-1.0 to decibels)
     private float LinearToLog(float value)
     {
-        return Mathf.Log10(value) * 20;
+        return Mathf.Log10(value) * 25;
     }
 }
