@@ -56,13 +56,13 @@ public class EnemyManager : MonoBehaviour
         }
         if(enemyChaseCount == 1 && !soundon)
         {
-            Debug.Log("Sound On");
+            //Debug.Log("Sound On");
             Messenger.Broadcast(GameEvent.BATTLE_SOUND_ON);
             soundon = true;
         }
         else if(enemyChaseCount == 0 && soundon)
         {
-            Debug.Log("Sound Off");
+            //Debug.Log("Sound Off");
             Messenger.Broadcast(GameEvent.BATTLE_SOUND_OFF);
             soundon = false;
         }

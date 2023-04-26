@@ -16,7 +16,7 @@ public class EnemyNPC : MonoBehaviour
 
     [SerializeField] private GameObject projectilePrefab;       // for creating "bullets"
     private Transform projectileSpawnPt;        // spawn point for bullets    
-    private float projectileForce = 10f;                        // force to shoot the projectile with
+    private float projectileForce = 2.2f;                        // force to shoot the projectile with
 
     [SerializeField] private Transform prizeLoc;    // centre reference place to auto generate next waypoint
     public float PrizeRadius { get; private set; } = 7;     // range radius from centre for random next waypoint 

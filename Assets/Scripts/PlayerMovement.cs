@@ -141,5 +141,15 @@ public class PlayerMovement : MonoBehaviour
         {
             pc.ReactToHit(3);
         }
+
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "projectile")
+        {
+            pc.ReactToHit(1);
+        }
+    }
+
 }
