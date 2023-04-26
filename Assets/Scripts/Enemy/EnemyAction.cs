@@ -11,6 +11,7 @@ public class EnemyAction : MonoBehaviour
     private int health;
     private int maxHealth;
     private EnemyUIC enemyUI;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,14 @@ public class EnemyAction : MonoBehaviour
 
         if (isAlive)
         {
+            if(gameObject.tag == "slime")
+            {
+                Messenger<int>.Broadcast(GameEvent.ENEMY_HURT, 1);
+            }
+            if(gameObject.tag == "turtle")
+            {
+                Messenger<int>.Broadcast(GameEvent.ENEMY_HURT, 2);
+            }
             if (anim != null && health > 0)
             {
                 health -= hitDamage;

@@ -43,10 +43,22 @@ public class UIController : MonoBehaviour
 
     public void UpdateTimer()
     {
+        string minText;
+        string secText;
         float minutes = Mathf.FloorToInt(sceneController.timeRemaining / 60f);
         float seconds = Mathf.FloorToInt(sceneController.timeRemaining % 60f);
-        timervalue.text = minutes.ToString() + " : " + seconds.ToString();
-        timeleft.text = minutes.ToString() + " : " + seconds.ToString();
+        if(minutes < 10)
+        {
+            minText = "0" + minutes.ToString();
+        }
+        else { minText = minutes.ToString(); }
+        if(seconds < 10)
+        {
+            secText = "0" + seconds.ToString();
+        }
+        else { secText = seconds.ToString(); }
+        timervalue.text = minText + " : " + secText;
+        timeleft.text = minText + " : " + secText;
     }
 
     public void UpdateScore(int score)

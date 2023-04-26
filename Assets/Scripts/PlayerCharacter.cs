@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCharacter : MonoBehaviour
 {
     [SerializeField] private GameManager gm;
+    [SerializeField] private AudioClip ajOugh;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +20,10 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     
-    private void ReactToHit(int damagePoint)
+    public void ReactToHit(int damagePoint)
     {
-        Animator anim = GetComponentInChildren<Animator>();
+        Animator anim = GetComponent<Animator>();
+        SoundManager.Instance.PlaySfx(ajOugh);
         if (anim != null && gm.playerhealth > 0)
         {
             anim.SetTrigger("gethit");
@@ -30,17 +32,6 @@ public class PlayerCharacter : MonoBehaviour
         if (anim != null && gm.playerhealth <= 0)
         {
             anim.SetTrigger("die");
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "slime")
-        {
-            ReactToHit(1);
-        }
-        if(other.tag == "turtle")
-        {
-            ReactToHit(3);
         }
     }
 

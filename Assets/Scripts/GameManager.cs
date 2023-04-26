@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip gameoverSound;
     [SerializeField] private AudioClip gameoverSfx;
     [SerializeField] private AudioClip collect;
+    [SerializeField] private AudioClip slimeOugh;
+    [SerializeField] private AudioClip turtleOugh;
 
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
         Messenger.AddListener(GameEvent.POPUP_OPEN, OnPopupOpened);
         Messenger.AddListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
         Messenger<int>.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+        Messenger<int>.AddListener(GameEvent.ENEMY_HURT, OnEnemyHurt);
         Messenger<int>.AddListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
         Messenger.AddListener(GameEvent.COLLECT_KEY, OnCollectKey);
     }
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour
         Messenger.RemoveListener(GameEvent.POPUP_OPEN, OnPopupOpened);
         Messenger.RemoveListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
         Messenger<int>.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+        Messenger<int>.RemoveListener(GameEvent.ENEMY_HURT, OnEnemyHurt);
         Messenger<int>.RemoveListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
         Messenger.RemoveListener(GameEvent.COLLECT_KEY, OnCollectKey);
     }
@@ -167,6 +171,19 @@ public class GameManager : MonoBehaviour
     {
         score += monsterNum;
         ui.UpdateScore(score);
+    }
+
+    private void OnEnemyHurt(int monsterNum)
+    {
+        switch (monsterNum)
+        {
+            case 1:
+                SoundManager.Instance.PlaySfx(slimeOugh);
+                break;
+            case 2:
+                SoundManager.Instance.PlaySfx(turtleOugh);
+                break;
+        }
     }
 
     private void OnPlayerHealthChange(int point)

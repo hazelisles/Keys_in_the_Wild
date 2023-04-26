@@ -50,23 +50,8 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        welcomePopup.Open();
-        //timeRemaining = 601f;       
+        welcomePopup.Open();     
         SoundManager.Instance.PlayMusic(themeSound);
-        //initPoints[0] = new Vector3(-53.86f,1,1.4f);
-        //initPoints[1] = new Vector3(-20.03243f, 1.1f, 20.15111f);
-        //initPoints[2] = new Vector3(-49.43243f, 1, 64.05111f);
-        //initPoints[3] = new Vector3(39.56757f, 1.2f, 9.051113f);
-        //initPoints[4] = new Vector3(-64.56243f, 1, -62.49889f);
-        
-        //for (int i = 0; i < keys.Length; i++)
-        //{
-        //    if (keys[i] == null)
-        //    {
-        //        keys[i] = Instantiate(keyPrefab) as GameObject;
-        //        keys[i].transform.position = initPoints[i];
-        //    }
-        //}
     }
 
     // Update is called once per frame

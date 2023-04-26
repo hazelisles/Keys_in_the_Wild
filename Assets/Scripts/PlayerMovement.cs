@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController cc;
+    [SerializeField] private PlayerCharacter pc;
 
     private float speed = 9.0f;         // XZ movement speed
 
@@ -130,4 +131,15 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, camRotation, rotateToFaceAwayFromCameraSpeed * Time.deltaTime);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "slime")
+        {
+            pc.ReactToHit(1);
+        }
+        if (other.tag == "turtle")
+        {
+            pc.ReactToHit(3);
+        }
+    }
 }
