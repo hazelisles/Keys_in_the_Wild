@@ -6,6 +6,10 @@ public class KeyEnemy : MonoBehaviour
 {
     // array for enemies prefab
     public GameObject[] enemyPrefabs = new GameObject[2];
+    // projectile prefab
+    public GameObject projectile;
+    // projectile explosion effect prefab
+    public GameObject impactPrefab;
     int enemyCount = 0;
     private List<EnemyNPC> enemies = new List<EnemyNPC>();
     // Start is called before the first frame update
@@ -19,6 +23,7 @@ public class KeyEnemy : MonoBehaviour
 
 
             enemy.SetPrizeLoc(this.transform);
+            enemy.SetProjectilePrefab(projectile, impactPrefab);
             enemy.DetermineNextWaypoint();
 
             //Debug.Log("keypos:" + transform.position);

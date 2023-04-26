@@ -15,8 +15,8 @@ public class EnemyNPC : MonoBehaviour
     public NavMeshAgent Agent { get; private set; }
 
     [SerializeField] private GameObject projectilePrefab;       // for creating "bullets"
-    [SerializeField] public Transform projectileSpawnPt;        // spawn point for bullets    
-    private float projectileForce = 30f;                        // force to shoot the projectile with
+    private Transform projectileSpawnPt;        // spawn point for bullets    
+    private float projectileForce = 10f;                        // force to shoot the projectile with
 
     [SerializeField] private Transform prizeLoc;    // centre reference place to auto generate next waypoint
     public float PrizeRadius { get; private set; } = 7;     // range radius from centre for random next waypoint 
@@ -28,13 +28,20 @@ public class EnemyNPC : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");
-        
+        projectileSpawnPt = gameObject.transform.Find("spawnPoint");
     }
 
     public void SetPrizeLoc(Transform t)
     {
         prizeLoc = t;
         //Debug.Log("prize loc:" + prizeLoc.position);
+    }
+
+    public void SetProjectilePrefab(GameObject projectile, GameObject impact)
+    {
+        Projectile pro = projectile.GetComponent<Projectile>();
+        pro.SetImpactPrefab(impact);
+        projectilePrefab = projectile;
     }
 
     Vector3 GetRandomWaypoint()

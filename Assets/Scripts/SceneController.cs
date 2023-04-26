@@ -14,7 +14,8 @@ public class SceneController : MonoBehaviour
     private List<GameObject> spawnPoints = new List<GameObject>();
 
     [SerializeField] private GameObject[] enemyPrefabs = new GameObject[2];
-
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject impactPrefab;
     [SerializeField] private UIController ui;
     [SerializeField] private WelcomePopup welcomePopup;
     [SerializeField] private AudioClip themeSound;
@@ -35,6 +36,8 @@ public class SceneController : MonoBehaviour
             GameObject emptyPoint = Instantiate(keyPointPrefab);
             KeyEnemy ke = emptyPoint.GetComponent<KeyEnemy>();
             ke.enemyPrefabs = enemyPrefabs;
+            ke.projectile = projectilePrefab;
+            ke.impactPrefab = impactPrefab;
             emptyPoint.transform.position = new Vector3(child.position.x, 0.5f, child.position.z);
             emptyPoint.transform.rotation = Quaternion.identity;
             

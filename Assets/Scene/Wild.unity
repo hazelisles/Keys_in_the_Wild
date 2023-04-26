@@ -23406,6 +23406,8 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 6833138265207205232, guid: d3866ea284f815d478d1cba6c6a66f98, type: 3}
   - {fileID: 4972173849149598734, guid: 1a20a91888a79d34a8454cf42ad5fa21, type: 3}
+  projectilePrefab: {fileID: 1872136675313509310, guid: e16e8aa5850407943987c12d829d381c, type: 3}
+  impactPrefab: {fileID: 0}
   ui: {fileID: 741794159}
   welcomePopup: {fileID: 227115853}
   themeSound: {fileID: 8300000, guid: 494a01d0eb32c024c9b8a5e1d368defe, type: 3}
