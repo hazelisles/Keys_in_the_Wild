@@ -23407,7 +23407,7 @@ MonoBehaviour:
   - {fileID: 6833138265207205232, guid: d3866ea284f815d478d1cba6c6a66f98, type: 3}
   - {fileID: 4972173849149598734, guid: 1a20a91888a79d34a8454cf42ad5fa21, type: 3}
   projectilePrefab: {fileID: 1872136675313509310, guid: e16e8aa5850407943987c12d829d381c, type: 3}
-  impactPrefab: {fileID: 0}
+  impactPrefab: {fileID: 1687118924408352, guid: 77c69ec12208c4c4380d15e30b6f8f68, type: 3}
   ui: {fileID: 741794159}
   welcomePopup: {fileID: 227115853}
   themeSound: {fileID: 8300000, guid: 494a01d0eb32c024c9b8a5e1d368defe, type: 3}
@@ -30695,7 +30695,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138946519}
-  m_LocalRotation: {x: 0.091417894, y: -0.5216446, z: 0.05634322, w: 0.8463777}
+  m_LocalRotation: {x: 0.09141791, y: -0.52164453, z: 0.05634323, w: 0.8463777}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
