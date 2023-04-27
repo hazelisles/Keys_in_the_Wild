@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetGameActive(bool active)
     {
+        
         //Debug.Log("SetGameActive(" + active + ")");
         if (active)
         {
@@ -124,10 +125,10 @@ public class GameManager : MonoBehaviour
         gameover = true;
         ui.UpdateTimer();
         SetGameActive(false);
-        if (keyCount < 5 || score < 10)
+        if (keyCount >= 5 && score >= 10)
         {
-            ui.UpdateGameOverText("Time out", Color.red);
-            PlayGameOver();
+            ui.UpdateGameOverText("Goal!", Color.white);
+            
         }
         else if (playerhealth <= 0)
         {
@@ -136,7 +137,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ui.UpdateGameOverText("Goal!", Color.white);
+            ui.UpdateGameOverText("Time out", Color.red);
+            PlayGameOver();
         }
         gameOverPopup.Open();
     }
