@@ -67,7 +67,7 @@ public class UIController : MonoBehaviour
         gameoverscore.text = score.ToString();
     }
 
-    public void UpdateHealthBar(int playerhealth)
+    public void UpdateHealthBar(float playerhealth)
     {
         healthbar.value = playerhealth;
     }

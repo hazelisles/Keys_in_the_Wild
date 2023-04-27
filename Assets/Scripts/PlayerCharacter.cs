@@ -20,14 +20,14 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     
-    public void ReactToHit(int damagePoint)
+    public void ReactToHit(float damagePoint)
     {
         Animator anim = GetComponent<Animator>();
         SoundManager.Instance.PlaySfx(ajOugh);
         if (anim != null && gm.playerhealth > 0)
         {
             anim.SetTrigger("gethit");
-            Messenger<int>.Broadcast("PLAYER_HEALTH_CHANGE", damagePoint);
+            Messenger<float>.Broadcast("PLAYER_HEALTH_CHANGE", damagePoint);
         }
         if (anim != null && gm.playerhealth <= 0)
         {

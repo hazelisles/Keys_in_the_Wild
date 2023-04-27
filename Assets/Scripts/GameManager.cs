@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     private int keyCount = 0;
     private int score = 0;
-    public int playerhealth { get; private set; } = 100;
+    public float playerhealth { get; private set; } = 100;
     private bool gameover = false;
     private int popupsActive = 0;
     //private int enemyChaseActive = 0;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         Messenger.AddListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
         Messenger<int>.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
         Messenger<int>.AddListener(GameEvent.ENEMY_HURT, OnEnemyHurt);
-        Messenger<int>.AddListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
+        Messenger<float>.AddListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
         Messenger.AddListener(GameEvent.COLLECT_KEY, OnCollectKey);
         Messenger.AddListener(GameEvent.BATTLE_SOUND_ON, OnBattleSoundOn);
         Messenger.AddListener(GameEvent.BATTLE_SOUND_OFF, OnBattleSoundOff);
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         Messenger.RemoveListener(GameEvent.POPUP_CLOSE, OnPopupClosed);
         Messenger<int>.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
         Messenger<int>.RemoveListener(GameEvent.ENEMY_HURT, OnEnemyHurt);
-        Messenger<int>.RemoveListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
+        Messenger<float>.RemoveListener(GameEvent.PLAYER_HEALTH_CHANGE, OnPlayerHealthChange);
         Messenger.RemoveListener(GameEvent.COLLECT_KEY, OnCollectKey);
         Messenger.RemoveListener(GameEvent.BATTLE_SOUND_ON, OnBattleSoundOn);
         Messenger.RemoveListener(GameEvent.BATTLE_SOUND_OFF, OnBattleSoundOff);
@@ -96,15 +96,16 @@ public class GameManager : MonoBehaviour
     }
     public void SetGameActive(bool active)
     {
-        
         //Debug.Log("SetGameActive(" + active + ")");
         if (active)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1.0f;
             Cursor.visible = false;
         }
         else
         {
+            Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
             Cursor.visible = true;
         }
@@ -200,7 +201,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnPlayerHealthChange(int point)
+    private void OnPlayerHealthChange(float point)
     {
         playerhealth -= point;
         ui.UpdateHealthBar(playerhealth);

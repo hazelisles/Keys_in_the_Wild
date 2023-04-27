@@ -135,11 +135,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "slime")
         {
-            pc.ReactToHit(1);
+            pc.ReactToHit(0.5f);
         }
         if (other.tag == "turtle")
         {
-            pc.ReactToHit(3);
+            pc.ReactToHit(1.5f);
         }
 
     }
@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision.gameObject.tag == "projectile")
         {
-            pc.ReactToHit(1);
+            pc.ReactToHit(0.5f);
         }
     }
 
